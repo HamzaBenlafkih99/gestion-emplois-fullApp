@@ -1,0 +1,46 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const groupeRoute = require("./Routes/groupeRoute");
+const salleRoute = require("./Routes/salleRoute");
+const classeRoute = require("./Routes/classeRoute");
+const profRoute = require("./Routes/profRoute");
+const matiereRoute = require("./Routes/matiereRoute");
+const seanceRoute = require("./Routes/seanceRoute");
+const emploiRoute = require("./Routes/emploiRoute");
+const app = express();
+
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
+  console.log(err.name, err.message);
+  console.log(err);
+  process.exit(1);
+});
+//error handeling
+
+app.use(bodyParser.json());
+app.use(cors());
+
+app.use("/filieres", classeRoute);
+app.use("/matieres", matiereRoute);
+app.use("/availbleSalle", salleRoute);
+app.use("/groupes", groupeRoute);
+app.use("/availbleProf", profRoute);
+app.use("/addSeance", seanceRoute);
+app.use("/emploie", emploiRoute);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log("server is running on port 5000 ..."));
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});

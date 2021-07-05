@@ -1,0 +1,52 @@
+.button {
+  position: relative;
+  display: block;
+  width: 200px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: #1c89ff;
+  border: solid 1px transparent;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.button:hover {
+  background-color: #067dfb;
+  border-color: #fff;
+  transition: all 0.1s ease-in-out;
+}
+
+.pad {
+  padding: 0;
+}
+
+#heading {
+  font-weight: 700;
+}
+.bgr {
+  background: #666666a4;
+  height: 3rem;
+}
+.bgre {
+  background: #666666a4;
+}
+.element-bgr {
+  background: #305496;
+}
+.containere {
+  margin: 2rem;
+}
+
+.taille {
+  font-size: 12px;
+}
+.colone {
+  height: 6rem;
+}
+
+span {
+  font-weight: bold;
+  margin-left: 8px;
+}

@@ -1,0 +1,1176 @@
+<div class="main__container">
+  <div class="chartse">
+    <div class="charts__left">
+      <div class="charts__left__title">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                Année Universitaire
+                <select
+                  class="form-control"
+                  (change)="setAnnee($event.target.value)"
+                >
+                  <option>Selectionnez l'année</option>
+                  <option>2021</option>
+                  <option>2022</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                Semestre
+                <select
+                  class="form-control"
+                  (change)="setSemestre($event.target.value)"
+                >
+                  <option>Selectionnez semestre</option>
+                  <option>1</option>
+                  <option>2</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                Département
+                <select
+                  class="form-control"
+                  (change)="setDepartement($event.target.value)"
+                >
+                  <option>Selectionnez departement</option>
+                  <option>Informatique</option>
+                  <option>Industriel</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                Professeur
+                <select
+                  class="form-control"
+                  (click)="getAllProfs()"
+                  (change)="setProf($event.target.value)"
+                >
+                  <option>Selectionnez un Professeur</option>
+                  <option *ngFor="let prof of profs">
+                    {{ prof.nom }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="emplois.length != 0" class="chartse">
+    <div class="charts__left">
+      <div id="empls">
+        <div class="d-flex justify-content-center">
+          <h4>Emplois du Temps de {{ prof }}</h4>
+        </div>
+        <div class="d-flex justify-content-center">
+          <p>
+            <strong>A.U {{ annee }} / Semestre {{ semestre }}</strong>
+          </p>
+        </div>
+        <div class="containere element-border-bgr taille">
+          <div
+            class="bgr row border-bottom border-success element-border-bgr"
+            id="heading"
+          >
+            <div
+              class="
+                bg-white
+                col-1
+                border-bottom border-right border-success
+                element-border-bgr
+              "
+            ></div>
+            <div
+              class="
+                font-weight-bold
+                col-2
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              8h:00 - 9h:55
+            </div>
+            <div
+              class="
+                font-weight-bold
+                col-2
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              10h:10 - 12h:00
+            </div>
+            <div
+              class="
+                font-weight-bold
+                col-3
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              12h:10 -14h:00
+            </div>
+            <div
+              class="
+                font-weight-bold
+                col-2
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              14h:00 - 15h:55
+            </div>
+            <div
+              class="
+                font-weight-bold
+                col-2
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              16h:10 - 18h:00
+            </div>
+          </div>
+
+          <div class="row border border-success element-border-bgr">
+            <div
+              class="
+                font-weight-bold
+                bgre
+                col-1
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              Lundi
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].lundi.huit.length > 1,
+                  'grid-containere2': emplois[0].lundi.huit.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].lundi.huit"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].lundi.huit.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].lundi.dix.length > 1,
+                  'grid-containere2': emplois[0].lundi.dix.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].lundi.dix"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-3 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].lundi.dizen.length > 1,
+                  'grid-containere2': emplois[0].lundi.dizen.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].lundi.dizen"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].lundi.dizen.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].lundi.quat.length > 1,
+                  'grid-containere2': emplois[0].lundi.quat.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].lundi.quat"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].lundi.quat.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].lundi.six.length > 1,
+                  'grid-containere2': emplois[0].lundi.six.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].lundi.six"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].lundi.six.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row border border-success element-border-bgr">
+            <div
+              class="
+                font-weight-bold
+                bgre
+                col-1
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              Mardi
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mardi.huit.length > 1,
+                  'grid-containere2': emplois[0].mardi.huit.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mardi.huit"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mardi.huit.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mardi.dix.length > 1,
+                  'grid-containere2': emplois[0].mardi.dix.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mardi.dix"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mardi.dix.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-3 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mardi.dizen.length > 1,
+                  'grid-containere2': emplois[0].mardi.dizen.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mardi.dizen"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mardi.dizen.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mardi.quat.length > 1,
+                  'grid-containere2': emplois[0].mardi.quat.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mardi.quat"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mardi.quat.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mardi.six.length > 1,
+                  'grid-containere2': emplois[0].mardi.six.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mardi.six"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mardi.six.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row border border-success element-border-bgr">
+            <div
+              class="
+                font-weight-bold
+                bgre
+                col-1
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              Mercredi
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mercredi.huit.length > 1,
+                  'grid-containere2': emplois[0].mercredi.huit.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mercredi.huit"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mercredi.huit.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mercredi.dix.length > 1,
+                  'grid-containere2': emplois[0].mercredi.dix.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mercredi.dix"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mercredi.dix.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-3 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mercredi.dizen.length > 1,
+                  'grid-containere2': emplois[0].mercredi.dizen.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mercredi.dizen"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mercredi.dizen.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mercredi.quat.length > 1,
+                  'grid-containere2': emplois[0].mercredi.quat.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mercredi.quat"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mercredi.quat.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].mercredi.six.length > 1,
+                  'grid-containere2': emplois[0].mercredi.six.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].mercredi.six"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].mercredi.six.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row border border-success element-border-bgr">
+            <div
+              class="
+                font-weight-bold
+                bgre
+                col-1
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              Jeudi
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].jeudi.huit.length > 1,
+                  'grid-containere2': emplois[0].jeudi.huit.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].jeudi.huit"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].jeudi.huit.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].jeudi.dix.length > 1,
+                  'grid-containere2': emplois[0].jeudi.dix.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].jeudi.dix"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].jeudi.dix.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-3 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].jeudi.dizen.length > 1,
+                  'grid-containere2': emplois[0].jeudi.dizen.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].jeudi.dizen"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].jeudi.dizen.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].jeudi.quat.length > 1,
+                  'grid-containere2': emplois[0].jeudi.quat.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].jeudi.quat"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].jeudi.quat.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].jeudi.six.length > 1,
+                  'grid-containere2': emplois[0].jeudi.six.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].jeudi.six"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].jeudi.six.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row border border-success element-border-bgr">
+            <div
+              class="
+                font-weight-bold
+                bgre
+                col-1
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              Vendredi
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].vendredi.huit.length > 1,
+                  'grid-containere2': emplois[0].vendredi.huit.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].vendredi.huit"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].vendredi.huit.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].vendredi.dix.length > 1,
+                  'grid-containere2': emplois[0].vendredi.dix.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].vendredi.dix"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].vendredi.dix.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-3 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].vendredi.dizen.length > 1,
+                  'grid-containere2': emplois[0].vendredi.dizen.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].vendredi.dizen"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].vendredi.dizen.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].vendredi.quat.length > 1,
+                  'grid-containere2': emplois[0].vendredi.quat.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].vendredi.quat"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].vendredi.quat.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].vendredi.six.length > 1,
+                  'grid-containere2': emplois[0].vendredi.six.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].vendredi.six"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].vendredi.six.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row border border-success element-border-bgr">
+            <div
+              class="
+                font-weight-bold
+                bgre
+                col-1
+                border border-success
+                element-border-bgr
+                text-white
+              "
+            >
+              Samedi
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].samedi.huit.length > 1,
+                  'grid-containere2': emplois[0].samedi.huit.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].samedi.huit"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].samedi.huit.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].samedi.dix.length > 1,
+                  'grid-containere2': emplois[0].samedi.dix.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].samedi.dix"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].samedi.dix.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-3 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].samedi.dizen.length > 1,
+                  'grid-containere2': emplois[0].samedi.dizen.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].samedi.dizen"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].samedi.dizen.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].samedi.quat.length > 1,
+                  'grid-containere2': emplois[0].samedi.quat.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].samedi.quat"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].samedi.quat.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+            <div class="pad col-2 border border-success element-border-bgr">
+              <div
+                [ngClass]="{
+                  'grid-containere': emplois[0].samedi.six.length > 1,
+                  'grid-containere2': emplois[0].samedi.six.length == 1
+                }"
+                *ngFor="let emploi of emplois[0].samedi.six"
+              >
+                <div class="item2 element-bgr fnt text-white">
+                  {{ emploi.groupe }}
+                </div>
+                <div class="item3 element-bgr2 fnt">
+                  {{ emploi.matiere }}
+                  <span>( {{ emploi.type_cours }} )</span>
+                  <span *ngIf="emploi?.debut && emploi?.fin">
+                    S{{ emploi.debut }}/S{{ emploi.fin }}</span
+                  >
+                </div>
+                <div class="item5 fnt">
+                  <span>{{ emploi.classe }}</span
+                  ><span>{{ emploi.salle }}</span>
+                </div>
+              </div>
+              <div *ngIf="emplois[0].samedi.six.length == 0" class="colone">
+                <div
+                  class="element-bgr col element-border-bgr element-bgr"
+                ></div>
+                <div class="col element-border-bgr"></div>
+                <div class="col element-border-bgr"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="emplois.length != 0" class="d-flex justify-content-center">
+    <button (click)="download()" class="btn btn-success mt-2">
+      Generate <i class="fa fa-file"></i>
+    </button>
+  </div>
+</div>

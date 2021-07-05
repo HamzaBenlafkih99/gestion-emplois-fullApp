@@ -1,0 +1,166 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+.centered {
+  text-align: center;
+}
+
+.contentWrapper2 {
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.contentTable {
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.contentTable2 {
+  margin-right: auto;
+  margin-left: auto;
+  width: 85%;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.contentDiv {
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+}
+
+.contentParagraph {
+  max-height: 200px;
+  overflow-y: scroll;
+  margin-right: auto;
+  margin-left: auto;
+  width: 85%;
+}
+
+.contentWrapper {
+  background-color: #55abcf6e;
+  margin: 40px;
+  border-radius: 10px;
+}
+
+table thead th {
+  background-color: #3995bd85;
+}
+
+table thead tr th {
+  width: 200px;
+  text-align: center;
+}
+
+table {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table tbody tr:hover {
+  background-color: #3995bdaf;
+}
+
+tr:nth-child(even) {
+  background-color: #3995bd2d;
+}
+
+tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+
+tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.customTable2 td,
+.customTable2 th {
+  border: none;
+  text-align: left;
+}
+
+.customTable2 thead tr:first-child th:first-child,
+.customTable2 thead tr:first-child th:last-child {
+  border-radius: 0;
+}
+
+/* The 3 following classes allow for a fixed column header with scrolling enabled. */
+/* -------------------------------------Start------------------------------------- */
+.customTable2 thead th {
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 0;
+}
+
+.customTable2 tbody th {
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  left: 0;
+}
+
+/* To have the header in the first column stick to the left: */
+
+.customTable2 thead th:first-child {
+  left: 0;
+  z-index: 1;
+}
+/* -------------------------------------End---------------------------------------- */
+
+.search {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.search input {
+  width: 250px;
+  height: 32px;
+
+  background: #fcfcfc;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+}
+
+.search input {
+  text-indent: 32px;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: lightslategrey;
+}
+
+/*  Google Chrome Scrollbar styling   */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(82, 77, 77, 0.3);
+  border-radius: 10px;
+  background-color: lightgray;
+  color: rgb(165, 165, 235);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(82, 77, 77, 0.3);
+}

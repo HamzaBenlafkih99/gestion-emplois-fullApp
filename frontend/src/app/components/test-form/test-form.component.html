@@ -1,0 +1,331 @@
+<form #userForm="ngForm">
+  <div class="row d-flex justify-content-center mb-4">
+    <div class="col-md-4">
+      <label>Année universitaire</label>
+      <select
+        [(ngModel)]="emploie.annee"
+        [ngClass]="{
+          'is-invalid': emploiAnnee.errors && emploiAnnee.touched
+        }"
+        class="form-control"
+        #emploiAnnee="ngModel"
+        name="annee"
+        (click)="getAnnees()"
+        (change)="setAnnee($event.target.value)"
+        required
+      >
+        <option>Selectionnez l'année</option>
+        <option *ngFor="let ann of annees">
+          {{ ann }}
+        </option>
+      </select>
+      <div [hidden]="!emploiAnnee.errors?.required" class="invalid-feedback">
+        Année est required
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        Filière
+        <select
+          [(ngModel)]="emploie.filiere"
+          [ngClass]="{
+            'is-invalid': filiereEmploi.errors && filiereEmploi.touched
+          }"
+          class="form-control"
+          #filiereEmploi="ngModel"
+          name="filiere"
+          (click)="getAllFilieres()"
+          (change)="setFiliere($event.target.value)"
+          required
+        >
+          <option>Selectionnez la filière</option>
+          <option *ngFor="let filiere of filieres">
+            {{ filiere }}
+          </option>
+        </select>
+        <div
+          [hidden]="!filiereEmploi.errors?.required"
+          class="invalid-feedback"
+        >
+          Filière est required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Classe</label>
+        <select
+          [(ngModel)]="emploie.classe"
+          [ngClass]="{
+            'is-invalid': classeEmploi.errors && classeEmploi.touched
+          }"
+          class="form-control"
+          #classeEmploi="ngModel"
+          name="classe"
+          (click)="getAllClasses()"
+          (change)="setClasse($event.target.value)"
+          required
+        >
+          <option>Selectionnez une classe</option>
+          <option *ngFor="let classe of classes">
+            {{ classe }}
+          </option>
+        </select>
+        <div
+          [hidden]="!filiereEmploi.errors?.required"
+          class="invalid-feedback"
+        >
+          Classe est required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Semestre</label>
+        <select
+          [(ngModel)]="emploie.semestre"
+          [ngClass]="{
+            'is-invalid': semestreEmploi.errors && semestreEmploi.touched
+          }"
+          class="form-control"
+          #semestreEmploi="ngModel"
+          name="semestre"
+          (change)="setSemestre($event.target.value)"
+          required
+        >
+          <option>Selectionnez le semestre</option>
+          <option *ngFor="let sm of semestres">
+            {{ sm }}
+          </option>
+        </select>
+        <div
+          [hidden]="!semestreEmploi.errors?.required"
+          class="invalid-feedback"
+        >
+          semestre est required
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Jour</label>
+        <select
+          [(ngModel)]="emploie.jour"
+          [ngClass]="{
+            'is-invalid': jourEmploi.errors && jourEmploi.touched
+          }"
+          class="form-control"
+          #jourEmploi="ngModel"
+          name="jour"
+          (change)="setJour($event.target.value)"
+          required
+        >
+          <option>selectionnez le jour</option>
+          <option *ngFor="let jr of jours">
+            {{ jr }}
+          </option>
+        </select>
+        <div [hidden]="!jourEmploi.errors?.required" class="invalid-feedback">
+          Jour est required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Heure</label>
+        <select
+          [(ngModel)]="emploie.heure"
+          [ngClass]="{
+            'is-invalid': heureEmploi.errors && heureEmploi.touched
+          }"
+          class="form-control"
+          #heureEmploi="ngModel"
+          name="heure"
+          (change)="setHeure($event.target.value)"
+          required
+        >
+          <option>selectionnez une Heure</option>
+          <option *ngFor="let hr of heures">
+            {{ hr }}
+          </option>
+        </select>
+        <div [hidden]="!heureEmploi.errors?.required" class="invalid-feedback">
+          Heure est required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Matière</label>
+        <select
+          [(ngModel)]="emploie.matiere"
+          [ngClass]="{
+            'is-invalid': matiereEmploi.errors && matiereEmploi.touched
+          }"
+          class="form-control"
+          #matiereEmploi="ngModel"
+          name="matiere"
+          (click)="getAllMatieres()"
+          (change)="setMatiere($event.target.value)"
+          required
+        >
+          <option>Selectionnez une matiere</option>
+          <option *ngFor="let module of matieres">
+            {{ module }}
+          </option>
+        </select>
+        <div
+          [hidden]="!matiereEmploi.errors?.required"
+          class="invalid-feedback"
+        >
+          Matiere est required
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Type</label>
+        <select
+          [(ngModel)]="emploie.type"
+          [ngClass]="{
+            'is-invalid': typeEmploi.errors && typeEmploi.touched
+          }"
+          class="form-control"
+          #typeEmploi="ngModel"
+          name="type"
+          (change)="setType($event.target.value)"
+          required
+        >
+          <option>selectionnez le Type de seance</option>
+          <option value="Cours">Cours</option>
+          <option value="TD">TD</option>
+          <option value="TP">TP</option>
+        </select>
+        <div [hidden]="!typeEmploi.errors?.required" class="invalid-feedback">
+          Type est required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Première semaine</label>
+        <input
+          class="form-control"
+          type="number"
+          (change)="setDebut($event.target.value)"
+          placeholder="semaine de debut"
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> dernière Semiane</label>
+        <input
+          class="form-control"
+          type="number"
+          (change)="setFin($event.target.value)"
+          placeholder="semaine de fin"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Local</label>
+        <select
+          [(ngModel)]="emploie.salle"
+          [ngClass]="{
+            'is-invalid': salleEmploi.errors && salleEmploi.touched
+          }"
+          class="form-control"
+          #salleEmploi="ngModel"
+          name="salle"
+          (click)="getAllSalles()"
+          (change)="setSalle($event.target.value)"
+          required
+        >
+          <option>Selectionnez un local</option>
+          <option *ngFor="let sal of salles">
+            {{ sal }}
+          </option>
+        </select>
+        <div [hidden]="!salleEmploi.errors?.required" class="invalid-feedback">
+          Salle est required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Profs</label>
+        <select
+          [(ngModel)]="emploie.prof"
+          [ngClass]="{
+            'is-invalid': profEmploi.errors && profEmploi.touched
+          }"
+          class="form-control"
+          #profEmploi="ngModel"
+          name="prof"
+          (click)="getAllProfs()"
+          (change)="setProf($event.target.value)"
+          required
+        >
+          <option>Selectionnez un prof</option>
+          <option *ngFor="let prf of profs">
+            {{ prf }}
+          </option>
+        </select>
+        <div [hidden]="!profEmploi.errors?.required" class="invalid-feedback">
+          Prof est required
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Groupe</label>
+        <select
+          [(ngModel)]="emploie.groupe"
+          [ngClass]="{
+            'is-invalid': groupeEmploi.errors && groupeEmploi.touched
+          }"
+          class="form-control"
+          #groupeEmploi="ngModel"
+          name="groupe"
+          (click)="getAllGroupes()"
+          (change)="setGroupe($event.target.value)"
+          required
+        >
+          <option>Selectionnez un groupe</option>
+          <option *ngFor="let grp of groupes">
+            {{ grp }}
+          </option>
+        </select>
+        <div [hidden]="!groupeEmploi.errors?.required" class="invalid-feedback">
+          Groupe est required
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="d-flex justify-content-center">
+        <input
+          [disabled]="!userForm.form.valid"
+          class="btn btn-outline-primary button"
+          type="submit"
+          value="Ajouter"
+          (click)="addSeance($event)"
+        />
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,24 @@
+<div class="charts__right__title">
+  <div>
+    <h1>Les Professeurs</h1>
+    <p>avec leur département</p>
+  </div>
+</div>
+<div class="apex1">
+  <div class="contentTable">
+    <table *ngIf="profs.length != 0">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Departement</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prof of profs">
+          <td>{{ prof.nom }}</td>
+          <td>{{ prof.departement }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

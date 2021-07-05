@@ -1,0 +1,83 @@
+<div *ngIf="!connected && !profConnected" class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Sign In</h5>
+          <form
+            #userForm="ngForm"
+            (ngSubmit)="onSubmit(userForm)"
+            class="form-signin"
+          >
+            <div class="form-label-group">
+              <label>Email</label>
+              <input
+                type="email"
+                [(ngModel)]="user.email"
+                [ngClass]="{
+                  'is-invalid': userEmail.errors && userEmail.touched
+                }"
+                class="form-control"
+                name="email"
+                #userEmail="ngModel"
+                required
+                pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+              />
+              <div
+                [hidden]="!userEmail.errors?.required"
+                class="invalid-feedback"
+              >
+                Email name required
+              </div>
+
+              <div
+                [hidden]="!userEmail.errors?.pattern"
+                class="invalid-feedback"
+              >
+                Email is not valid
+              </div>
+            </div>
+
+            <div class="form-label-group mt-4">
+              <label for="inputPassword">Password</label>
+              <input
+                type="password"
+                [(ngModel)]="user.password"
+                [ngClass]="{
+                  'is-invalid': userPassword.errors && userPassword.touched
+                }"
+                class="form-control"
+                name="password"
+                #userPassword="ngModel"
+                required
+                minlength="5"
+              />
+
+              <div
+                [hidden]="!userPassword.errors?.required"
+                class="invalid-feedback"
+              >
+                Password required
+              </div>
+
+              <div
+                [hidden]="!userPassword.errors?.minlength"
+                class="invalid-feedback"
+              >
+                Must be at least 5 characters
+              </div>
+            </div>
+            <button
+              [disabled]="!userForm.form.valid"
+              class="btn btn-primary btn-lg btn-block text-uppercase mt-4"
+            >
+              Sign in
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-home *ngIf="connected"></app-home>
+<app-prof-dashboard *ngIf="profConnected"></app-prof-dashboard>

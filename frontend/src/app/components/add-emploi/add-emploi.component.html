@@ -1,0 +1,1770 @@
+<div class="main__container">
+  <!-- MAIN TITLE STARTS HERE -->
+
+  <div class="main__title">
+    <img src="assets/hello.svg" alt="" />
+    <div class="main__greeting">
+      <h1>Hello Codersbite</h1>
+      <p>Welcome to your admin dashboard</p>
+    </div>
+  </div>
+
+  <!-- MAIN TITLE ENDS HERE -->
+
+  <!-- CHARTS STARTS HERE -->
+  <div class="chartse">
+    <div class="charts__left">
+      <div class="charts__left__title">
+        <div *ngIf="success" class="alert alert-success">
+          Séance ajoutée avec succès
+        </div>
+        <div *ngIf="removed" class="alert alert-success">
+          Séance Supprimée avec succès
+        </div>
+      </div>
+      <div id="apex1">
+        <div class="col-md-12">
+          <div class="row d-flex justify-content-center mb-4">
+            <div class="col-md-4">
+              <h2>Emploi de temps</h2>
+            </div>
+          </div>
+          <form #userForm="ngForm">
+            <div class="row d-flex justify-content-center mb-4">
+              <div class="col-md-4">
+                <label>Année universitaire</label>
+                <select
+                  [(ngModel)]="emploie.annee"
+                  [ngClass]="{
+                    'is-invalid': emploiAnnee.errors && emploiAnnee.touched
+                  }"
+                  class="form-control"
+                  #emploiAnnee="ngModel"
+                  name="annee"
+                  (click)="getAnnees()"
+                  (change)="setAnnee($event.target.value)"
+                  required
+                >
+                  <option>Selectionnez l'année</option>
+                  <option *ngFor="let ann of annees">
+                    {{ ann }}
+                  </option>
+                </select>
+                <div
+                  [hidden]="!emploiAnnee.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Année est required
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  Filière
+                  <select
+                    [(ngModel)]="emploie.filiere"
+                    [ngClass]="{
+                      'is-invalid':
+                        filiereEmploi.errors && filiereEmploi.touched
+                    }"
+                    class="form-control"
+                    #filiereEmploi="ngModel"
+                    name="filiere"
+                    (click)="getAllFilieres()"
+                    (change)="setFiliere($event.target.value)"
+                    required
+                  >
+                    <option>Selectionnez la filière</option>
+                    <option *ngFor="let filiere of filieres">
+                      {{ filiere }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!filiereEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Filière est required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Classe</label>
+                  <select
+                    [(ngModel)]="emploie.classe"
+                    [ngClass]="{
+                      'is-invalid': classeEmploi.errors && classeEmploi.touched
+                    }"
+                    class="form-control"
+                    #classeEmploi="ngModel"
+                    name="classe"
+                    (click)="getAllClasses()"
+                    (change)="setClasse($event.target.value)"
+                    required
+                  >
+                    <option>Selectionnez une classe</option>
+                    <option *ngFor="let classe of classes">
+                      {{ classe }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!classeEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Classe est required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Semestre</label>
+                  <select
+                    [(ngModel)]="emploie.semestre"
+                    [ngClass]="{
+                      'is-invalid':
+                        semestreEmploi.errors && semestreEmploi.touched
+                    }"
+                    class="form-control"
+                    #semestreEmploi="ngModel"
+                    name="semestre"
+                    (change)="setSemestre($event.target.value)"
+                    required
+                  >
+                    <option>Selectionnez le semestre</option>
+                    <option *ngFor="let sm of semestres">
+                      {{ sm }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!semestreEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    semestre est required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Jour</label>
+                  <select
+                    [(ngModel)]="emploie.jour"
+                    [ngClass]="{
+                      'is-invalid': jourEmploi.errors && jourEmploi.touched
+                    }"
+                    class="form-control"
+                    #jourEmploi="ngModel"
+                    name="jour"
+                    (change)="setJour($event.target.value)"
+                    required
+                  >
+                    <option>selectionnez le jour</option>
+                    <option *ngFor="let jr of jours">
+                      {{ jr }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!jourEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Jour est required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Heure</label>
+                  <select
+                    [(ngModel)]="emploie.heure"
+                    [ngClass]="{
+                      'is-invalid': heureEmploi.errors && heureEmploi.touched
+                    }"
+                    class="form-control"
+                    #heureEmploi="ngModel"
+                    name="heure"
+                    (change)="setHeure($event.target.value)"
+                    required
+                  >
+                    <option>selectionnez une Heure</option>
+                    <option *ngFor="let hr of heures">
+                      {{ hr }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!heureEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Heure est required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Matière</label>
+                  <select
+                    [(ngModel)]="emploie.matiere"
+                    [ngClass]="{
+                      'is-invalid':
+                        matiereEmploi.errors && matiereEmploi.touched
+                    }"
+                    class="form-control"
+                    #matiereEmploi="ngModel"
+                    name="matiere"
+                    (click)="getAllMatieres()"
+                    (change)="setMatiere($event.target.value)"
+                    required
+                  >
+                    <option>Selectionnez une matiere</option>
+                    <option *ngFor="let module of matieres">
+                      {{ module }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!matiereEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Matiere est required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Type</label>
+                  <select
+                    [(ngModel)]="emploie.type"
+                    [ngClass]="{
+                      'is-invalid': typeEmploi.errors && typeEmploi.touched
+                    }"
+                    class="form-control"
+                    #typeEmploi="ngModel"
+                    name="type"
+                    (change)="setType($event.target.value)"
+                    required
+                  >
+                    <option>selectionnez le Type de seance</option>
+                    <option value="Cours">Cours</option>
+                    <option value="TD">TD</option>
+                    <option value="TP">TP</option>
+                  </select>
+                  <div
+                    [hidden]="!typeEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Type est required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Première semaine</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    (change)="setDebut($event.target.value)"
+                    placeholder="semaine de debut"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label> dernière Semiane</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    (change)="setFin($event.target.value)"
+                    placeholder="semaine de fin"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Local</label>
+                  <select
+                    [(ngModel)]="emploie.salle"
+                    [ngClass]="{
+                      'is-invalid': salleEmploi.errors && salleEmploi.touched
+                    }"
+                    class="form-control"
+                    #salleEmploi="ngModel"
+                    name="salle"
+                    (click)="getAllSalles()"
+                    (change)="setSalle($event.target.value)"
+                    required
+                  >
+                    <option>Selectionnez un local</option>
+                    <option *ngFor="let sal of salles">
+                      {{ sal }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!salleEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Salle est required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Profs</label>
+                  <select
+                    [(ngModel)]="emploie.prof"
+                    [ngClass]="{
+                      'is-invalid': profEmploi.errors && profEmploi.touched
+                    }"
+                    class="form-control"
+                    #profEmploi="ngModel"
+                    name="prof"
+                    (click)="getAllProfs()"
+                    (change)="setProf($event.target.value)"
+                    required
+                  >
+                    <option>Selectionnez un prof</option>
+                    <option *ngFor="let prf of profs">
+                      {{ prf }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!profEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Prof est required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Groupe</label>
+                  <select
+                    [(ngModel)]="emploie.groupe"
+                    [ngClass]="{
+                      'is-invalid': groupeEmploi.errors && groupeEmploi.touched
+                    }"
+                    class="form-control"
+                    #groupeEmploi="ngModel"
+                    name="groupe"
+                    (click)="getAllGroupes()"
+                    (change)="setGroupe($event.target.value)"
+                    required
+                  >
+                    <option>Selectionnez un groupe</option>
+                    <option *ngFor="let grp of groupes">
+                      {{ grp }}
+                    </option>
+                  </select>
+                  <div
+                    [hidden]="!groupeEmploi.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Groupe est required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                  <input
+                    [disabled]="!userForm.form.valid"
+                    class="btn btn-outline-primary button"
+                    type="submit"
+                    value="Ajouter"
+                    (click)="addSeance($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="emplois.length != 0" class="chartse">
+    <div class="charts__left">
+      <div class="d-flex justify-content-center">
+        <h4>Emplois du Temps {{ classeSelectionne }}</h4>
+      </div>
+      <div class="d-flex justify-content-center">
+        <p>
+          <strong>A.U {{ annee }} / Semestre {{ semestre }}</strong>
+        </p>
+      </div>
+      <div class="containere element-border-bgr taille">
+        <div
+          class="bgr row border-bottom border-success element-border-bgr"
+          id="heading"
+        >
+          <div
+            class="
+              bg-white
+              col-1
+              border-bottom border-right border-success
+              element-border-bgr
+            "
+          ></div>
+          <div
+            class="
+              font-weight-bold
+              col-2
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            8h:00 -9h:55
+          </div>
+          <div
+            class="
+              font-weight-bold
+              col-2
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            10h:10 -12h:00
+          </div>
+          <div
+            class="
+              font-weight-bold
+              col-3
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            12h:10 -14h:00
+          </div>
+          <div
+            class="
+              font-weight-bold
+              col-2
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            14h:00 -15h:55
+          </div>
+          <div
+            class="
+              font-weight-bold
+              col-2
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            16h:10 -18h:00
+          </div>
+        </div>
+
+        <div class="row border border-success element-border-bgr">
+          <div
+            class="
+              font-weight-bold
+              bgre
+              col-1
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            Lundi
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0]?.lundi.huit">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi?.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi?.debut && emploi?.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.huit.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].lundi.dix">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-3 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].lundi.dizen">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].lundi.quat">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.quat.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].lundi.six">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.six.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row border border-success element-border-bgr">
+          <div
+            class="
+              font-weight-bold
+              bgre
+              col-1
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            Mardi
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0]?.mardi.huit">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi?.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi?.debut && emploi?.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mardi.huit.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mardi.dix">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mardi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-3 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mardi.dizen">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mardi.quat">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mardi.quat.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mardi.six">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mardi.six.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row border border-success element-border-bgr">
+          <div
+            class="
+              font-weight-bold
+              bgre
+              col-1
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            Mercredi
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div
+              class="colone"
+              *ngFor="let emploi of emplois[0]?.mercredi.huit"
+            >
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi?.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi?.debut && emploi?.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mercredi.huit.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mercredi.dix">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mercredi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-3 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mercredi.dizen">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mercredi.quat">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mercredi.quat.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].mercredi.six">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].mercredi.six.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row border border-success element-border-bgr">
+          <div
+            class="
+              font-weight-bold
+              bgre
+              col-1
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            Jeudi
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0]?.jeudi.huit">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi?.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi?.debut && emploi?.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].jeudi.huit.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].jeudi.dix">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].jeudi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-3 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].jeudi.dizen">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].jeudi.quat">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].jeudi.quat.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].jeudi.six">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].jeudi.six.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row border border-success element-border-bgr">
+          <div
+            class="
+              font-weight-bold
+              bgre
+              col-1
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            Vendredi
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div
+              class="colone"
+              *ngFor="let emploi of emplois[0]?.vendredi.huit"
+            >
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi?.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi?.debut && emploi?.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].vendredi.huit.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].vendredi.dix">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].vendredi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-3 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].vendredi.dizen">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].vendredi.quat">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].vendredi.quat.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].vendredi.six">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].vendredi.six.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row border border-success element-border-bgr">
+          <div
+            class="
+              font-weight-bold
+              bgre
+              col-1
+              border border-success
+              element-border-bgr
+              text-white
+            "
+          >
+            Samedi
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0]?.samedi.huit">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi?.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi?.debut && emploi?.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].samedi.huit.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].samedi.dix">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].samedi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-3 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].samedi.dizen">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].lundi.dix.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].samedi.quat">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].samedi.quat.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+          <div class="pad col-2 border border-success element-border-bgr">
+            <div *ngFor="let emploi of emplois[0].samedi.six">
+              <div
+                class="
+                  element-bgr
+                  col
+                  element-border-bgr element-bgr
+                  text-white
+                "
+              >
+                {{ emploi.matiere }} ( <span> {{ emploi.type_cours }}</span> )
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.prof }}
+              </div>
+              <div class="col element-border-bgr">
+                {{ emploi.salle }} <span> {{ emploi.groupe }}</span>
+              </div>
+              <div
+                *ngIf="emploi.debut && emploi.fin"
+                class="col element-border-bgr"
+              >
+                <span> S{{ emploi.debut }}</span> /
+                <span> S{{ emploi.fin }}</span>
+              </div>
+              <div class="col element-border-bgr mt-2 mb-2">
+                <button
+                  (click)="removeSeance(emploi.id)"
+                  class="btn btn-danger btn-sm ml-2"
+                >
+                  <i class="fa fa-remove"></i>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="emplois[0].samedi.six.length == 0" class="colone">
+              <div class="element-bgr col element-border-bgr element-bgr"></div>
+              <div class="col element-border-bgr"></div>
+              <div class="col element-border-bgr"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
