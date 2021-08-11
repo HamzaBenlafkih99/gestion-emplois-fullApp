@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { api } from '../../environments/api';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -9,9 +10,9 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class FiliereService {
-  urlFiliere: string = 'http://localhost:5000/filieres';
-  urlClasse: string = 'http://localhost:5000/filieres/classes';
-  urlAnnee: string = 'http://localhost:5000/filieres/annee';
+  urlFiliere: string = `${api}/filieres`;
+  urlClasse: string = `${api}/filieres/classes`;
+  urlAnnee: string = `${api}/filieres/annee`;
 
   constructor(private http: HttpClient) {}
 

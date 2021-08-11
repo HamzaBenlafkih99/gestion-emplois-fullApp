@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { api } from '../../environments/api';
 import { ProfStatic } from '../models/profStat';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -10,9 +11,9 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class EmploiService {
-  addUrl: string = 'http://localhost:5000/addSeance';
-  getUrl: string = 'http://localhost:5000/emploie';
-  deleteUrl: string = 'http://localhost:5000/addSeance/delete';
+  addUrl: string = `${api}/addSeance`;
+  getUrl: string = `${api}/emploie`;
+  deleteUrl: string = `${api}/addSeance/delete`;
 
   constructor(private http: HttpClient) {}
 

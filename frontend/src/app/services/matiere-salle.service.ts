@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { api } from '../../environments/api';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -9,10 +10,10 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class MatiereSalleService {
-  matiereUrl: string = 'http://localhost:5000/matieres';
-  salleUrl: string = 'http://localhost:5000/availbleSalle';
-  profUrl: string = 'http://localhost:5000/availbleProf';
-  groupeUrl: string = `http://localhost:5000/groupes/availble`;
+  matiereUrl: string = `${api}/matieres`;
+  salleUrl: string = `${api}/availbleSalle`;
+  profUrl: string = `${api}/availbleProf`;
+  groupeUrl: string = `${api}/groupes/availble`;
 
   constructor(private http: HttpClient) {}
 

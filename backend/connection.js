@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "hamza1999",
+  password: "",
   database: "timetable",
   multipleStatements: true,
 });

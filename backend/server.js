@@ -12,18 +12,17 @@ const profRoute = require("./Routes/profRoute");
 const matiereRoute = require("./Routes/matiereRoute");
 const seanceRoute = require("./Routes/seanceRoute");
 const emploiRoute = require("./Routes/emploiRoute");
+const { checkConnection } = require("./connection");
 const app = express();
 
-process.on("uncaughtException", (err) => {
-  console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
-  console.log(err.name, err.message);
-  console.log(err);
-  process.exit(1);
-});
 //error handeling
 
 app.use(bodyParser.json());
 app.use(cors());
+
+app.get("/", (req, res) => {
+  res.send("server is working ...");
+});
 
 app.use("/filieres", classeRoute);
 app.use("/matieres", matiereRoute);
@@ -35,12 +34,6 @@ app.use("/emploie", emploiRoute);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log("server is running on port 5000 ..."));
+checkConnection();
 
-process.on("unhandledRejection", (err) => {
-  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
-  console.log(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});
+app.listen(PORT, () => console.log("server is running on port 5000 ..."));
